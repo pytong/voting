@@ -16,6 +16,7 @@ app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/services', express.static(process.cwd() + '/app/services'));
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
+app.use('/', express.static(process.cwd() + '/app'));
 
 app.use(session({
 	secret: 'secretClementine',
