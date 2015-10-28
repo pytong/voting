@@ -112,7 +112,7 @@ img {
 }
 
 .btn {	/* Styling for buttons */
-	margin: 0 8px;
+	margin: 0 8px 20px 8px;
 	color: white;
 	background-color: #00BCD4;
 	display: inline-block;
@@ -193,11 +193,4 @@ span {
 	color: #FFFFFF;
 	display: inline;
 	margin: 0;
-}
-
-input.ng-invalid {
-  border: 1px solid red;
-}
-input.ng-valid {
-  border: 1px solid green;
 }

@@ -1,6 +1,10 @@
-app.controller("votingController", function($scope) {
-    $scope.message = "Hello";
-    // $scope.left  = function() {return 100 - $scope.message.length;};
-    // $scope.clear = function() {$scope.message = "";};
-    // $scope.save  = function() {alert("Note Saved");};
-});
+app.controller("VotingController", ["$scope", "$location", "userService", function($scope, $location, userService) {
+  $scope.register = function(user) {
+    $scope.user = angular.copy(user);
+
+    userService.save($scope.user).success(function(data) {
+
+    });
+  };
+
+}]);

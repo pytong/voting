@@ -16,12 +16,28 @@
 	<body ng-app="votingApp">
 		<div class="container">	
 			<div class="login">
-				<div ng-controller="votingController">
-				  <form novalidate class="form ng-valid ng-invalid ng-pristine">
-				    Name: <input required type="text" ng-minlength=3 ng-model="user.name" /><br />
-				    E-mail: <input required type="email"  ng-minlength=5 ng-model="user.email" /><br />
-				    Password: <input required type="password" ng-minlength=5 ng-model="user.password" /><br />
-				    <input type="submit" ng-click="register(user)" value="Sign up" />
+				<div ng-controller="VotingController">
+				  <form novalidate name="form">
+				    Name: <input required type="text" ng-model="user.name" name="name" class="form-control ng-pristine ng-valid ng-touched"/>
+				    <div ng-show="form.$submitted || form.name.$dirty">
+						<span ng-show="form.name.$error.required">Tell us your name.</span>
+				    </div>
+				    <br />
+
+				    E-mail: <input required type="email" ng-minlength=5 ng-model="user.email" name="email" class="form-control ng-pristine ng-valid ng-touched"/>
+				    <div ng-show="form.$submitted || form.email.$dirty">
+						<span ng-show="form.email.$error.required">Tell us your email.</span>
+				        <span ng-show="form.email.$error.email">This is not a valid email.</span>
+				    </div>
+				    <br />
+
+				    Password: <input required type="password" ng-minlength=3 ng-model="user.password" name="password" class="form-control ng-pristine ng-valid ng-touched"/>
+				    <div ng-show="form.$submitted || form.password.$dirty">
+				        <span ng-show="form.password.$invalid">Password must have at least 3 characters.</span>
+				    </div>
+				    <br />
+
+				    <input type="submit" ng-disabled="!form.$valid" class="btn" ng-click="register(user)" value="Sign up" />
 				  </form>
 				</div>
 
@@ -35,6 +51,7 @@
 		</div>
 
 		<script src="controllers/votingApp.js"></script>
+		<script src="services/userService.js"></script>
 		<script src="controllers/votingController.js"></script>
 	</body>
 
