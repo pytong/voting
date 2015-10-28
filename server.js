@@ -3,12 +3,16 @@
 var express = require('express');
 var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
+// var localPassport = require('passport');
 var twitterPassport = require('passport');
 var session = require('express-session');
 
+
+// require('./app/config/localPassport')(localPassport);
+require('./app/config/twitterPassport')(twitterPassport);
 var app = express();
 require('dotenv').load();
-require('./app/config/twitterPassport')(twitterPassport);
+
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -23,6 +27,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
+// app.use(localPassport.initialize());
+// app.use(localPassport.session());
 
 app.use(twitterPassport.initialize());
 app.use(twitterPassport.session());

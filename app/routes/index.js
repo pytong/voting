@@ -38,10 +38,11 @@ module.exports = function (app, twitterPassport) {
 			res.json(req.user.twitter);
 		});
 
-	app.route('/user')
-		.post(function(req, res) {
-
-		});
+	// app.route('/users')
+	// 	.get(localPassport.authenticate('local', {
+	// 		successRedirect: '/',
+ //           failureRedirect: '/login'
+	// 	}));
 
 	app.route('/auth/twitter')
 		.get(twitterPassport.authenticate('twitter'));
