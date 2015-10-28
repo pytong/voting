@@ -4,10 +4,7 @@
 
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
-   var clickNbr = document.querySelector('#click-nbr');
    var apiUrl = appUrl + '/api/:id/clicks';
-
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount));
 
    // addButton.addEventListener('click', function () {
 
