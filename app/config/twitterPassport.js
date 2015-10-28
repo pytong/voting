@@ -1,8 +1,8 @@
 'use strict';
 
-var TwitterStrategy = require('passport-twitter').Strategy;
-var User = require('../models/users');
-var configAuth = require('./auth');
+var TwitterStrategy = require('passport-twitter').Strategy,
+    TwitterUser = require('../models/twitterUsers'),
+    configAuth = require('./auth');
 
 module.exports = function (passport) {
 	passport.serializeUser(function (user, done) {
@@ -10,7 +10,7 @@ module.exports = function (passport) {
 	});
 
 	passport.deserializeUser(function (id, done) {
-		User.findById(id, function (err, user) {
+		TwitterUser.findById(id, function (err, user) {
 			done(err, user);
 		});
 	});
@@ -21,7 +21,7 @@ module.exports = function (passport) {
 			callbackURL: configAuth.twitterAuth.callbackURL
 		},
 		function(token, tokenSecret, profile, done) {
-			User.findOne({ 'twitter.id': profile.id }, function (err, user) {
+			TwitterUser.findOne({ 'twitter.id': profile.id }, function (err, user) {
 				if (err) {
 					return done(err);
 				}
@@ -29,7 +29,7 @@ module.exports = function (passport) {
 				if (user) {
 					return done(null, user);
 				} else {
-					var newUser = new User();
+					var newUser = new TwitterUser();
 
 					newUser.twitter.id = profile.id;
 					newUser.twitter.username = profile.username;

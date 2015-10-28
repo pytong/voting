@@ -1,9 +1,8 @@
 'use strict';
 
 var path = process.cwd();
-var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 
-module.exports = function (app, passport) {
+module.exports = function (app, twitterPassport) {
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
@@ -12,8 +11,6 @@ module.exports = function (app, passport) {
 			res.redirect('/login');
 		}
 	}
-
-	var clickHandler = new ClickHandler();
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
@@ -41,11 +38,16 @@ module.exports = function (app, passport) {
 			res.json(req.user.twitter);
 		});
 
+	app.route('/user')
+		.post(function(req, res) {
+
+		});
+
 	app.route('/auth/twitter')
-		.get(passport.authenticate('twitter'));
+		.get(twitterPassport.authenticate('twitter'));
 
 	app.route('/auth/twitter/callback')
-		.get(passport.authenticate('twitter', {
+		.get(twitterPassport.authenticate('twitter', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
