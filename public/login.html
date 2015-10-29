@@ -14,11 +14,11 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
 	</head>
 
-	<body ng-app="votingApp">
+	<body ng-app="VotingApp">
 		<div class="container">	
 			<div class="login">
-				<div ng-controller="VotingController">
-				  <form novalidate name="form" ng-submit="register(form)">
+				<div>
+				  <form novalidate name="form" action="/register" method="post">
 				    Name: <input required type="text" ng-model="user.name" name="name" class="form-control ng-pristine ng-valid ng-touched"/>
 				    <div ng-show="form.$submitted || form.name.$dirty">
 						<span ng-show="form.name.$error.required">Tell us your name.</span>

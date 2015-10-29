@@ -38,11 +38,11 @@ module.exports = function (app, passport) {
 			res.json(req.user.twitter);
 		});
 
-	// app.route('/auth')
-	// 	.post(passport.authenticate('local', {
-	// 		successRedirect: '/',
- //           failureRedirect: '/login'
-	// 	}));
+	app.route('/register')
+		.post(passport.authenticate('local-signin', {
+			successRedirect: '/',
+			failureRedirect: '/login'
+		}));
 
 	app.route('/auth/twitter')
 		.get(passport.authenticate('twitter'));
