@@ -13,17 +13,13 @@ module.exports = function (passport) {
 
 	passport.deserializeUser(function (id, done) {
 		TwitterUser.findById(id, function (err, user) {
-			if (err) {
-				return done(err);
-			}
+			if (err) { return done(err); }
 
 			if(user) {
 				done(err, user);
 			} else {
 				User.findById(id, function(err, user) {
-					if(err) {
-						return done(err);
-					}
+					if(err) { return done(err); }
 					done(err, user);
 				});
 			}
@@ -37,9 +33,7 @@ module.exports = function (passport) {
 		},
 		function(token, tokenSecret, profile, done) {
 			TwitterUser.findOne({ 'twitter.id': profile.id }, function (err, user) {
-				if (err) {
-					return done(err);
-				}
+				if (err) { return done(err); }
 
 				if (user) {
 					return done(null, user);
@@ -51,9 +45,7 @@ module.exports = function (passport) {
 					newUser.twitter.displayName = profile.displayName;
 
 					newUser.save(function (err) {
-						if (err) {
-							throw err;
-						}
+						if (err) { return done(err); }
 
 						return done(null, newUser);
 					});
@@ -62,6 +54,24 @@ module.exports = function (passport) {
 		}
 	));
 	
+	passport.use('local-register', new LocalStrategy({
+			usernameField: 'email',
+			passReqToCallback: true
+		},
+		function(req, email, password, done) {
+			var newUser = new User();
+			newUser.name = req.body.name;
+			newUser.email = email;
+			newUser.password = password;
+
+			newUser.save(function (err) {
+				if (err) { return done(err); }
+
+				return done(null, newUser);
+			});
+		}
+	));
+
     passport.use('local-signin', new LocalStrategy({
 			usernameField: 'email'
 		},

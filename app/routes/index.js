@@ -39,7 +39,7 @@ module.exports = function (app, passport) {
 		});
 
 	app.route('/register')
-		.post(passport.authenticate('local-signin', {
+		.post(passport.authenticate('local-register', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
