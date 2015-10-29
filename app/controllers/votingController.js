@@ -1,10 +1,7 @@
-app.controller("VotingController", ["$scope", "$location", "userService", function($scope, $location, userService) {
-  $scope.register = function(user) {
-    $scope.user = angular.copy(user);
+app.controller("VotingController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
+  $scope.register = function(form) {
 
-    userService.save($scope.user).success(function(data) {
-
-    });
+    UserService.save($scope.user);
   };
 
 }]);
