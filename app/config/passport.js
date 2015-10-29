@@ -13,15 +13,22 @@ module.exports = function (passport) {
 
 	passport.deserializeUser(function (id, done) {
 		TwitterUser.findById(id, function (err, user) {
-			done(err, user);
+			if (err) {
+				return done(err);
+			}
+
+			if(user) {
+				done(err, user);
+			} else {
+				User.findById(id, function(err, user) {
+					if(err) {
+						return done(err);
+					}
+					done(err, user);
+				});
+			}
 		});
 	});
-	
-    // passport.deserializeUser(function(id, done) {
-    //   User.findById(id, function(err, user) {
-    //     done(err, user);
-    //   });
-    // });
 
 	passport.use('twitter', new TwitterStrategy({
 			consumerKey: configAuth.twitterAuth.consumerKey,
