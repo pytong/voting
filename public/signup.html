@@ -16,9 +16,10 @@
 
 	<body ng-app="VotingApp">
 		<div class="container">
-			<div class="login">
+			<a href="/signin">Sign In</a>
+			<div class="signup">
 				<div>
-				  <form novalidate name="form" action="/signup" method="post">
+				  <form novalidate name="form" action="/signup-submit" method="post">
 				    Name: <input required type="text" ng-model="user.name" name="name" class="form-control ng-pristine ng-valid ng-touched"/>
 				    <div ng-show="form.$submitted || form.name.$dirty">
 						<span ng-show="form.name.$error.required">Tell us your name.</span>
@@ -43,7 +44,7 @@
 				</div>
 
 				<a href="/auth/twitter">
-					<div class="btn" id="login-btn">
+					<div class="btn" id="submit-btn">
 						<img src="/public/img/twitter_32px.png" alt="github logo" />
 						<p>LOGIN WITH TWITTER</p>
 					</div>

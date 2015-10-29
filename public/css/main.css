@@ -77,12 +77,12 @@ header a ~ p {
 
 /****** Login Styling ******/
 
-.login {
+.signin, .signup {
 	margin: 86px auto 0 auto;
 	text-align: center;
 }
 
-#login-btn {
+#submit-btn {
 	width: 225px;
 	padding: 7px 5px;
 }

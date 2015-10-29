@@ -22,6 +22,11 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/signin.html');
 		});
 
+	app.route('/signup')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/signup.html');
+		});
+
 	app.route('/logout')
 		.get(function (req, res) {
 			req.logout();
@@ -38,16 +43,17 @@ module.exports = function (app, passport) {
 			res.json(req.user.twitter);
 		});
 
-	app.route('/signup')
+	app.route('/signup-submit')
 		.post(passport.authenticate('local-signup', {
 			successRedirect: '/',
 			failureRedirect: '/signup'
 		}));
 
-	app.route('/signin')
+	app.route('/signin-submit')
 		.post(passport.authenticate('local-signin', {
 			successRedirect: '/',
-			failureRedirect: '/signin'
+			failureRedirect: '/signin',
+			failureFlash: true
 		}));
 
 	app.route('/auth/twitter')
