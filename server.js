@@ -6,13 +6,12 @@ var mongoose = require('mongoose');
 // var localPassport = require('passport');
 var twitterPassport = require('passport');
 var session = require('express-session');
+var app = express();
+require('dotenv').load();
 
 
 // require('./app/config/localPassport')(localPassport);
 require('./app/config/twitterPassport')(twitterPassport);
-var app = express();
-require('dotenv').load();
-
 
 mongoose.connect(process.env.MONGO_URI);
 
