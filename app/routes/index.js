@@ -2,7 +2,7 @@
 
 var path = process.cwd();
 
-module.exports = function (app, twitterPassport) {
+module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
@@ -38,17 +38,17 @@ module.exports = function (app, twitterPassport) {
 			res.json(req.user.twitter);
 		});
 
-	// app.route('/users')
-	// 	.get(localPassport.authenticate('local', {
+	// app.route('/auth')
+	// 	.post(passport.authenticate('local', {
 	// 		successRedirect: '/',
  //           failureRedirect: '/login'
 	// 	}));
 
 	app.route('/auth/twitter')
-		.get(twitterPassport.authenticate('twitter'));
+		.get(passport.authenticate('twitter'));
 
 	app.route('/auth/twitter/callback')
-		.get(twitterPassport.authenticate('twitter', {
+		.get(passport.authenticate('twitter', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));

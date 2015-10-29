@@ -18,7 +18,7 @@
 		<div class="container">	
 			<div class="login">
 				<div ng-controller="VotingController">
-				  <form novalidate name="form">
+				  <form novalidate name="form" ng-submit="register(form)">
 				    Name: <input required type="text" ng-model="user.name" name="name" class="form-control ng-pristine ng-valid ng-touched"/>
 				    <div ng-show="form.$submitted || form.name.$dirty">
 						<span ng-show="form.name.$error.required">Tell us your name.</span>
@@ -38,7 +38,7 @@
 				    </div>
 				    <br />
 
-				    <input type="submit" ng-disabled="!form.$valid" class="btn" ng-click="register(user)" value="Sign up" />
+				    <input type="submit" ng-disabled="!form.$valid" class="btn" value="Sign up" />
 				  </form>
 				</div>
 

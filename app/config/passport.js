@@ -1,7 +1,9 @@
 'use strict';
 
 var TwitterStrategy = require('passport-twitter').Strategy,
+	LocalStrategy = require('passport-local').Strategy,
     TwitterUser = require('../models/twitterUsers'),
+    User = require('../models/users'),
     configAuth = require('./auth');
 
 module.exports = function (passport) {
@@ -14,8 +16,14 @@ module.exports = function (passport) {
 			done(err, user);
 		});
 	});
+	
+    // passport.deserializeUser(function(id, done) {
+    //   User.findById(id, function(err, user) {
+    //     done(err, user);
+    //   });
+    // });
 
-	passport.use(new TwitterStrategy({
+	passport.use('twitter', new TwitterStrategy({
 			consumerKey: configAuth.twitterAuth.consumerKey,
 			consumerSecret: configAuth.twitterAuth.consumerSecret,
 			callbackURL: configAuth.twitterAuth.callbackURL
@@ -46,4 +54,21 @@ module.exports = function (passport) {
 			});
 		}
 	));
+	
+    passport.use('local', new LocalStrategy({
+        usernameField: 'email'
+    },
+    function(username, password, done) {
+        User.findOne({ username: username }, function(err, user) {
+	        if (err) { return done(err); }
+	        if (!user) {
+	            return done(null, false, { message: 'Incorrect username.' });
+	        }
+	        if (!user.validPassword(password)) {
+	            return done(null, false, { message: 'Incorrect password.' });
+	        }
+	        	return done(null, user);
+	     	});
+      	}
+    ));
 };
