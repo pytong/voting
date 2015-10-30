@@ -1,6 +1,9 @@
 'use strict';
 
 var path = process.cwd();
+var ejs = require('ejs');
+var fs = require('fs');
+
 
 module.exports = function (app, passport) {
 
@@ -19,7 +22,8 @@ module.exports = function (app, passport) {
 
 	app.route('/signin')
 		.get(function (req, res) {
-			res.sendFile(path + '/public/signin.html');
+			var templateString = fs.readFileSync(path + '/public/signin.html', 'utf-8');
+			res.end(ejs.render(templateString, {error: "erer"}));
 		});
 
 	app.route('/signup')
@@ -52,8 +56,7 @@ module.exports = function (app, passport) {
 	app.route('/signin-submit')
 		.post(passport.authenticate('local-signin', {
 			successRedirect: '/',
-			failureRedirect: '/signin',
-			failureFlash: true
+			failureRedirect: '/signin'
 		}));
 
 	app.route('/auth/twitter')
