@@ -15,13 +15,21 @@ module.exports = function (app, passport) {
 		}
 	}
 
+	function isNotLoggedIn(req, res, next) {
+		if (!req.isAuthenticated()) {
+			return next();
+		} else {
+			res.redirect('/');
+		}
+	}
+
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 
 	app.route('/signin')
-		.get(function (req, res) {
+		.get(isNotLoggedIn, function (req, res) {
 			var templateString = fs.readFileSync(path + '/public/signin.html', 'utf-8');
 			res.end(ejs.render(templateString, { error: req.flash("error")[0] }));
 		});

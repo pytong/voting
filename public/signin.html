@@ -20,8 +20,13 @@
 			<div class="signin">
 				<div>
 					<% if (error) { %>
-						<p><%= error %></p>
+						<div class="alert alert-danger" role="alert">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						    <span class="sr-only">Error:</span>
+						    <%= error %>
+						</div>
 					<% } %>
+
 					<form novalidate name="form" action="/signin-submit" method="post">
 						E-mail: <input required type="email" ng-minlength=5 ng-model="user.email" name="email" class="form-control ng-pristine ng-valid ng-touched"/>
 						<div ng-show="form.$submitted || form.email.$dirty">
