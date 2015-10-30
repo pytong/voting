@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
 var app = express();
 
 require('dotenv').load();
@@ -13,6 +14,7 @@ require('./app/config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
 
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/services', express.static(process.cwd() + '/app/services'));

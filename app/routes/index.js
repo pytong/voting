@@ -23,7 +23,7 @@ module.exports = function (app, passport) {
 	app.route('/signin')
 		.get(function (req, res) {
 			var templateString = fs.readFileSync(path + '/public/signin.html', 'utf-8');
-			res.end(ejs.render(templateString, {error: "erer"}));
+			res.end(ejs.render(templateString, { error: req.flash("error")[0] }));
 		});
 
 	app.route('/signup')
@@ -56,7 +56,8 @@ module.exports = function (app, passport) {
 	app.route('/signin-submit')
 		.post(passport.authenticate('local-signin', {
 			successRedirect: '/',
-			failureRedirect: '/signin'
+			failureRedirect: '/signin',
+			failureFlash: 'Invalid username or password.'
 		}));
 
 	app.route('/auth/twitter')
