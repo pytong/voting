@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var TwitterUser = new Schema({
 	twitter: {
 		id: String,
-		displayName: String,
+		name: String,
 		username: String
 	}
 });

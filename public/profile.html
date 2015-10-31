@@ -18,9 +18,8 @@
 		<div class="container">
 			<div class="twitter-profile" ng-controller="UserController">
 				<img src="/public/img/twitter_32px.png" alt="twitter logo" />
-				<p><span>ID: </span><span id="profile-id" class="profile-value"></span></p>
-				<p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
-				<p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
+				<p><span>Username: </span><span id="profile-username" class="profile-value">{{ username }}</span></p>
+				<p><span>Name: </span><span id="display-name" class="profile-value">{{ name }}</span></p>
 				<br/>
 				<a class="menu" href="/">Home</a>
 				<p id="menu-divide">|</p>

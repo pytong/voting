@@ -42,7 +42,7 @@ module.exports = function (passport) {
 
 					newUser.twitter.id = profile.id;
 					newUser.twitter.username = profile.username;
-					newUser.twitter.displayName = profile.displayName;
+					newUser.twitter.name = profile.displayName;
 
 					newUser.save(function (err) {
 						if (err) { return done(err); }

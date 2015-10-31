@@ -28,10 +28,10 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/index.html');
 		});
 
-	app.route('/users/:username')
+	app.route('/api/profile')
 		.get(function(req, res) {
-			console.log(req.params);
-			res.end();
+			var user = (req.user.twitter ? req.user.twitter : req.user);
+			res.json(user);
 		});
 
 	app.route('/signin')
