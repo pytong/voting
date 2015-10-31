@@ -28,6 +28,12 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/index.html');
 		});
 
+	app.route('/users/:username')
+		.get(function(req, res) {
+			console.log(req.params);
+			res.end();
+		});
+
 	app.route('/signin')
 		.get(isNotLoggedIn, function (req, res) {
 			var templateString = fs.readFileSync(path + '/public/signin.html', 'utf-8');

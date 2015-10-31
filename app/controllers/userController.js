@@ -1,29 +1,43 @@
-'use strict';
+app.controller("UserController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
 
-(function () {
+    var getUser = UserService.getUser();
+    getUser.get({username: "123@123"}, function(user) {
 
-   var profileId = document.querySelector('#profile-id') || null;
-   var profileUsername = document.querySelector('#profile-username') || null;
-   var profileRepos = document.querySelector('#profile-repos') || null;
-   var displayName = document.querySelector('#display-name');
-   var apiUrl = appUrl + '/api/:id';
+    });
 
-   function updateHtmlElement (data, element, userProperty) {
-      element.innerHTML = data[userProperty];
-   }
+}]);
 
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-      var userObject = JSON.parse(data);
 
-      updateHtmlElement(userObject, displayName, 'displayName');
+// 'use strict';
 
-      if (profileId !== null) {
-         updateHtmlElement(userObject, profileId, 'id');
-      }
+// (function () {
 
-      if (profileUsername !== null) {
-         updateHtmlElement(userObject, profileUsername, 'username');
-      }
+//    var profileId = document.querySelector('#profile-id') || null;
+//    var profileUsername = document.querySelector('#profile-username') || null;
+//    var profileRepos = document.querySelector('#profile-repos') || null;
+//    var displayName = document.querySelector('#display-name');
+//    var apiUrl = appUrl + '/api/:id';
 
-   }));
-})();
+//    function updateHtmlElement (data, element, userProperty) {
+//       element.innerHTML = data[userProperty];
+//    }
+
+//    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
+//       var userObject = JSON.parse(data);
+
+//       updateHtmlElement(userObject, displayName, 'displayName');
+
+//       if (profileId !== null) {
+//          updateHtmlElement(userObject, profileId, 'id');   
+//       }
+
+//       if (profileUsername !== null) {
+//          updateHtmlElement(userObject, profileUsername, 'username');   
+//       }
+
+//       if (profileRepos !== null) {
+//          updateHtmlElement(userObject, profileRepos, 'publicRepos');   
+//       }
+
+//    }));
+// })();

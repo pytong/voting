@@ -1,5 +1,8 @@
 app.service("UserService", ["$resource", "$location", function($resource, $location) {
-    var apiUrl = $location.protocol() + "://" + $location.host();
+    var appUrl = $location.protocol() + "://" + $location.host();
 
-    return $resource(apiUrl + "/users/:user", {user: "@user"});
+    this.getUser = function() {
+        return $resource(appUrl + "/users/:username", {username: "@username"});
+    }
+
 }]);

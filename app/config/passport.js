@@ -61,7 +61,7 @@ module.exports = function (passport) {
 		function(req, email, password, done) {
 			var newUser = new User();
 			newUser.name = req.body.name;
-			newUser.email = email;
+			newUser.username = email;
 			newUser.password = password;
 
 			newUser.save(function (err) {
@@ -76,7 +76,7 @@ module.exports = function (passport) {
 			usernameField: 'email'
 		},
 	    function(username, password, done) {
-	        User.findOne({ email: username }, function(err, user) {
+	        User.findOne({ username: username }, function(err, user) {
 		        if (err) { return done(err); }
 
 		        if (!user) {
