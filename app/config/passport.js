@@ -73,18 +73,17 @@ module.exports = function (passport) {
 		}
 	));
 
-    passport.use('local-signin', new LocalStrategy({
-			usernameField: 'email'
-		},
+    passport.use('local-signin', new LocalStrategy(
 	    function(username, password, done) {
 	        User.findOne({ username: username }, function(err, user) {
 		        if (err) { return done(err); }
 
 		        if (!user) {
-		            return done(null, false);
+		            return done(null, false, { message: 'Unknown user ' + username });
 		        }
-		        if (bcrypt.compareSync(user.password, bcrypt.hashSync(password)) === true) {
-		            return done(null, false);
+
+		        if (bcrypt.compareSync(user.password, bcrypt.hashSync(password)) === false) {
+		            return done(null, false, { message: 'Invalid password' });
 		        }
 		        return done(null, user);
 		    });

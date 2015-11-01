@@ -5,7 +5,14 @@
 	<head>
 		<title>Customized Voting App - Quick and Simple.</title>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
 	</head>
 
 	<header>
@@ -14,22 +21,21 @@
 		<a class="menu" href="/logout">Logout</a>
 	</header>
 
-	<body>
+	<body ng-app="VotingApp">
 		<div class="container">
-			<img src="/public/img/VoteLite-logo.png" />
+			<div ng-view></div>
 		</div>
-	
-		<div class="container">
-			<!--<p>You have clicked the button <span id="click-nbr"></span> times.</p>-->
-			<!--<br />-->
-			<!--<div class="btn-container">-->
-			<!--	<button type="submit" class="btn btn-add">CLICK ME!</button>-->
-			<!--	<button class="btn btn-delete">RESET</button>-->
-			<!--</div>-->
-		</div>
+
+		<!-- app -->
+		<script src="votingApp.js"></script>
+
+		<!-- service -->
+		<script src="services/userService.js"></script>
 		
-		<script type="text/javascript" src="controllers/clickController.client.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<!-- controller -->
+		<script src="controllers/mainController.js"></script>
+		<script src="controllers/userController.js"></script>
+		<script src="controllers/votingController.js"></script>
 	</body>
 
 </html>
