@@ -1,9 +1,12 @@
-app.controller("UserController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
+app.controller("UserController", ["$scope", "UserService", function($scope, UserService) {
 
-    var profile = UserService.profile();
-    profile.get(function(user) {
-        $scope.username = user.username;
-        $scope.name = user.name;
-    });
+    $scope.signin = function(username, password) {
+        var signin = UserService.signin(username, password);
+        signin.get(function(res) {
+
+            // check signin success
+            console.log(res);
+        });
+    }
 
 }]);
