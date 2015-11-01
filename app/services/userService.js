@@ -16,5 +16,8 @@ app.service("UserService", ["$resource", "$location", function($resource, $locat
         });
     }
 
+    this.logout = function() {
+        return $resource(appUrl + "/api/logout");
+    }
 
 }]);

@@ -2,11 +2,14 @@ app.controller("UserController", ["$scope", "UserService", function($scope, User
 
     $scope.signin = function(username, password) {
         var signin = UserService.signin(username, password);
-        signin.get(function(res) {
-
-            // check signin success
-            console.log(res);
-        });
+        signin.get(
+            function(res) { //success
+                window.location.href = "#/account";
+            },
+            function(err) { //error
+                $scope.error = "Incorrect email or password";
+            }
+        );
     }
 
 }]);
