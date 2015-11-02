@@ -3,7 +3,7 @@
 var TwitterStrategy = require('passport-twitter').Strategy,
 	LocalStrategy = require('passport-local').Strategy,
     TwitterUser = require('../models/twitterUsers'),
-    bcrypt = require('bcrypt-nodejs'),
+    bcrypt = require('bcryptjs'),
     User = require('../models/users'),
     configAuth = require('./auth');
 
@@ -61,8 +61,9 @@ module.exports = function (passport) {
 		},
 		function(req, username, password, done) {
 			var newUser = new User();
+
 			newUser.username = username;
-			newUser.password = bcrypt.hashSync(passport);
+			newUser.password = bcrypt.hashSync(password, 8);
 
 			newUser.save(function (err) {
 				if (err) { return done(err); }
@@ -81,8 +82,7 @@ module.exports = function (passport) {
 		            return done(null, false, { message: 'Unknown user ' + username });
 		        }
 
-				if(false) {
-		        //if (bcrypt.compareSync(user.password, bcrypt.hashSync(password)) === false) {
+		        if (bcrypt.compareSync(password, user.password) === false) {
 		            return done(null, false, { message: 'Invalid password' });
 		        }
 		        return done(null, user);
