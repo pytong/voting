@@ -3,11 +3,11 @@ app.controller("MainController", ["$scope", "$location", "UserService", function
 
     var loginStatus = UserService.loginStatus();
 
-    loginStatus.get(function(res) {
-        if(res.status === false) {
-            window.location.href = "#/signin";
-        }
-    });
+    // loginStatus.get(function(res) {
+    //     if(res.status === false) {
+    //         window.location.href = "#/signin";
+    //     }
+    // });
 
 
 }]);

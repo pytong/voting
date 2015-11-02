@@ -55,14 +55,13 @@ module.exports = function (passport) {
 		}
 	));
 	
-	passport.use('local-signup', new LocalStrategy({
-			usernameField: 'email',
+	passport.use('local-signup', new LocalStrategy(
+		{
 			passReqToCallback: true
 		},
-		function(req, email, password, done) {
+		function(req, username, password, done) {
 			var newUser = new User();
-			newUser.name = req.body.name;
-			newUser.username = email;
+			newUser.username = username;
 			newUser.password = bcrypt.hashSync(passport);
 
 			newUser.save(function (err) {
@@ -82,7 +81,8 @@ module.exports = function (passport) {
 		            return done(null, false, { message: 'Unknown user ' + username });
 		        }
 
-		        if (bcrypt.compareSync(user.password, bcrypt.hashSync(password)) === false) {
+				if(false) {
+		        //if (bcrypt.compareSync(user.password, bcrypt.hashSync(password)) === false) {
 		            return done(null, false, { message: 'Invalid password' });
 		        }
 		        return done(null, user);
