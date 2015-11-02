@@ -21,7 +21,7 @@
         }
 
         this.logout = function() {
-            return $resource(appUrl + "/api/logout");
+            return $resource(appUrl + "/api/users/logout");
         }
 
     }]);

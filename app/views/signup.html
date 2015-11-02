@@ -1,7 +1,6 @@
 <div ng-controller="UserController">
 
-	<a href="#/">Home</a> | <a href="#/signin">Sign In</a>
-
+	<navigation-bar></navigation-bar>
 	<div class="signup">
 		<div>
 		    <form novalidate name="form" ng-submit="signup(user.name, user.email, user.password)" method="post">

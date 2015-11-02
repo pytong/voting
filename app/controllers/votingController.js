@@ -1,5 +1,5 @@
 (function(app) {
-    app.controller("VotingController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
+    app.controller("VotingController", ["$scope", function($scope) {
 
     }]);
 })(app);

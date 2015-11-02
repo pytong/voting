@@ -1,6 +1,7 @@
 var app = angular.module("VotingApp", ["ngResource", "ngRoute"]);
 
-app.config(function($routeProvider) {
+app.config(function($locationProvider, $routeProvider) {
+    $locationProvider.html5Mode(true);
     $routeProvider
     .when("/", {
         controller: "MainController",
