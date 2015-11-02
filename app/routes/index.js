@@ -13,13 +13,13 @@ module.exports = function (app, passport) {
 
 	app.route('/api/users/signin')
 		.get(
-			passport.authenticate('local-signin', { failureRedirect: false, failureFlash: false }),
+			passport.authenticate('local-signin'),
 			function(req, res) {
 				res.json({success: true});
 			});
 
 	app.route('/api/users/signup-submit')
-		.post(passport.authenticate('local-signup', { failureRedirect: false, failureFlash: false }),
+		.post(passport.authenticate('local-signup'),
 			function(req, res) {
 				res.json({success: true});
 			});
@@ -30,18 +30,18 @@ module.exports = function (app, passport) {
 			res.json({success: true});
 		});
 
+	app.route('/auth/twitter')
+		.get(passport.authenticate('twitter'));
+
+	app.route('/auth/twitter/callback')
+		.get(passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
+			function(req, res) {
+				res.redirect('/#/account');
+		});
+
 	app.route("*")
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
 
-
-	// app.route('/auth/twitter')
-	// 	.get(passport.authenticate('twitter'));
-
-	// app.route('/auth/twitter/callback')
-	// 	.get(passport.authenticate('twitter', {
-	// 		successRedirect: '/',
-	// 		failureRedirect: '/signin'
-	// 	}));
 };
