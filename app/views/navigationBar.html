@@ -1,12 +1,12 @@
 <div class="nav-links">
-    <span><a href="/">Home</a></span>
-    <span ng-cloak ng-show="showSignInLink">
+    <span><a href="#/">Home</a></span>
+    <span ng-show="showSignInLink">
         | <a href="#/signin">Sign in</a>
     </span>
-    <span ng-cloak ng-show="showRegisterLink">
+    <span ng-show="showRegisterLink">
         | <a href="#/signup" ng-hide="isLoggedIn">Register</a>
     </span>
-    <span ng-cloak ng-show="showLogoutLink">
-        | <a class="menu" href="/" ng-click="logout()">Logout</a>
+    <span ng-show="showLogoutLink">
+        | <a class="menu" href="#/" ng-click="logout()">Logout</a>
     </span>
 </div>
