@@ -194,3 +194,8 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+.slogan {
+	font-style: italic;
+	color: #777;
+}
