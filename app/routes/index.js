@@ -34,9 +34,9 @@ module.exports = function (app, passport) {
 		.get(passport.authenticate('twitter'));
 
 	app.route('/auth/twitter/callback')
-		.get(passport.authenticate('twitter', { failureRedirect: '#/signin' }),
+		.get(passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
 			function(req, res) {
-				res.redirect('/');
+				res.redirect('/#/account');
 		});
 
 	app.route("*")
