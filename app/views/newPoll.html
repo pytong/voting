@@ -1,4 +1,4 @@
-<div ng-controller="PollController">
+<div class="poll" ng-controller="PollController">
     New Poll
     <div class="form-group">
         <label for="question">Question:</label>
@@ -6,9 +6,10 @@
     </div>
 
     <fieldset  data-ng-repeat="choice in choices">
-        <input type="text" ng-model="choice.name" name="" placeholder="Enter choice">
+        <input type="text" ng-model="choice.name" class="choice" placeholder="Enter choice">
         <button type="button" class="btn btn-danger" ng-show="$last" ng-click="removeChoice()">-</button>
     </fieldset>
 
-    <button class="add-choice" ng-click="addChoice()">Add Choice</button>
+    <button class="btn btn-default" ng-click="addChoice()">Add Choice</button>
+
 </div>
