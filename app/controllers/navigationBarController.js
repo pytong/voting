@@ -17,7 +17,7 @@
         $scope.logout = function() {
             UserService.logout().save(function(res) {
                 if(res.success === true) {
-                    window.location.href = "/";
+                    window.location.href = "#/signin";
                 }
             });
         }
