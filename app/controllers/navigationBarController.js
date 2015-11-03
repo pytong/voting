@@ -1,5 +1,5 @@
 (function(app) {
-    app.controller("NavigationBarController", ["$scope", "UserService", function($scope, UserService) {
+    app.controller("NavigationBarController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
 
         $scope.showSignInLink = false;
         $scope.showRegisterLink = false;
@@ -8,6 +8,10 @@
         UserService.loginStatus().get(function(res) {
             if(res.status === true) {
                 $scope.showLogoutLink = true;
+
+                if($location.path() === "/signin" || $location.path() === "/signup") {
+                    window.location.href = "#/";
+                }
             } else {
                 $scope.showSignInLink = true;
                 $scope.showRegisterLink = true;
