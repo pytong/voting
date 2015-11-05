@@ -48,12 +48,17 @@ header {
 }
 
 .submit-btn {
+	margin-top: 20px;
 	line-height: 32px;
 	font-size: 16px;
 }
 
-.question, .choice, .add-choice-btn {
+.question, .choice{
 	margin: 5px 0;
+}
+
+.add-choice-btn {
+	margin: 5px 0 0 15px;
 }
 
 .btn > img {

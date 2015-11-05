@@ -16,12 +16,12 @@ mongoose.connect(process.env.MONGO_URI);
 
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/services', express.static(process.cwd() + '/app/services'));
-app.use('/views', express.static(process.cwd() + '/app/views'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
-app.use('/', express.static(process.cwd() + '/app'));
+app.use('/controllers', express.static('app/controllers'));
+app.use('/services', express.static('app/services'));
+app.use('/views', express.static('app/views'));
+app.use('/public', express.static('public'));
+app.use('/common', express.static('app/common'));
+app.use('/', express.static('app'));
 
 app.use(session({
 	secret: 'secretClementine',
