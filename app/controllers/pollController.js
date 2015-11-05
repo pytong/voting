@@ -1,7 +1,7 @@
 (function(app) {
     app.controller("PollController", ["$scope", "PollService", function($scope, PollService) {
-        $scope.choices = [{"id": "choice1"}, {"id": "choice2"}];
 
+        $scope.choices = [{"id": "choice1"}, {"id": "choice2"}];
 
         $scope.addChoice = function() {
             if($(".choice").last().val() === "") { return; }
