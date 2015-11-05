@@ -6,5 +6,6 @@
         $scope.newPoll = function() {
             $scope.showNewPoll = true;
         }
+
     }]);
 })(app);

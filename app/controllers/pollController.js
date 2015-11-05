@@ -1,7 +1,7 @@
 (function(app) {
-    app.controller("PollController", ["$scope", function($scope) {
-
+    app.controller("PollController", ["$scope", "PollService", function($scope, PollService) {
         $scope.choices = [{"id": "choice1"}, {"id": "choice2"}];
+
 
         $scope.addChoice = function() {
             if($(".choice").last().val() === "") { return; }
@@ -17,17 +17,19 @@
             $scope.choices.splice(lastItem);
         }
 
-        // this.createPoll = function(question, choices) {
-        //     console.log(question, choices);
-        //     PollService.createPoll(question, choices)
-        //         .save(
-        //             function(res) { //success
-        //                 //window.location.href = "#/account";
-        //             },
-        //             function(err) { //error
-        //               // $scope.error = "Failed to register.";
-        //             }
-        //         );
-        // }
+        $scope.createPoll = function(question, choices) {
+            console.log("sdsd");
+            console.log(question, choices);
+            PollService.createPoll(question, choices)
+                .save(
+                    function(res) { //success
+                        //window.location.href = "#/account";
+                    },
+                    function(err) { //error
+                      // $scope.error = "Failed to register.";
+                    }
+                );
+        }
+
     }]);
 })(app);
