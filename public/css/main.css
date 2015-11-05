@@ -24,58 +24,15 @@ body {
 }
 
 header {
-	color: #00BCD4;
-	height: 56px;
-	margin: 0 0 14px 0;
+	background-color: #00BCD4;
+	margin: 20px 0;
+	padding: 10px;
+	color: #FFF;
 	text-align: center;
+	font-size: 36px;
 }
 
-p {
-	margin: 8px 0 0 0;
-}
-
-.container p {
-	text-align: center;
-	padding: 0;
-}
-
-/****** Header Styling ******/
-
-header p {
-	margin: 16px 0 5px 0;
-}
-
-.menu {
-	text-decoration: none;
-	padding: 6px;
-	margin: 0;
-	color: #727272;
-}
-
-.menu:visited {
-	color: #727272;
-}
-
-.menu:hover {
-	color: #FFA000;
-}
-
-.menu:active {
-	color: #FF630D;
-}
-
-header a ~ p {
-	margin: 0;
-	padding: 0;
-	display: inline;
-	color: #ECEFF1;
-}
-
-#display-name {
-	font-weight: 400;
-}
-
-/****** Login Styling ******/
+/********  Styling ********/
 
 .signin, .signup {
 	margin: 86px auto 0 auto;
@@ -86,27 +43,22 @@ header a ~ p {
 	width: 208px;
 }
 
+.twitter-btn p {
+	margin: 8px 0 0 0;
+}
+
 .submit-btn {
 	line-height: 32px;
 	font-size: 16px;
 }
 
+.choice-row, .add-choice-btn {
+	margin: 5px 0;
+}
+
 .btn > img {
 	float: left;
 	margin-right: 5px;
-}
-
-/****** Logo Div Styling ******/
-
-img {
-	margin: 0 auto;
-	display: block;
-}
-
-#menu-divide {
-	color: #FFFFFF;
-	display: inline;
-	margin: 0;
 }
 
 .slogan {
