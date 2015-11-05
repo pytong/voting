@@ -52,7 +52,7 @@ header {
 	font-size: 16px;
 }
 
-.choice-row, .add-choice-btn {
+.question, .choice, .add-choice-btn {
 	margin: 5px 0;
 }
 
