@@ -18,7 +18,6 @@
         }
 
         $scope.createPoll = function(question, choices) {
-            console.log("sdsd");
             console.log(question, choices);
             PollService.createPoll(question, choices)
                 .save(
