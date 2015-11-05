@@ -16,5 +16,18 @@
             var lastItem = $scope.choices.length - 1;
             $scope.choices.splice(lastItem);
         }
+
+        // this.createPoll = function(question, choices) {
+        //     console.log(question, choices);
+        //     PollService.createPoll(question, choices)
+        //         .save(
+        //             function(res) { //success
+        //                 //window.location.href = "#/account";
+        //             },
+        //             function(err) { //error
+        //               // $scope.error = "Failed to register.";
+        //             }
+        //         );
+        // }
     }]);
 })(app);

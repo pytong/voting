@@ -1,15 +1,23 @@
 <div class="poll" ng-controller="PollController">
-    New Poll
-    <div class="form-group">
-        <label for="question">Question:</label>
-        <input type="text" class="form-control" ng-model="poll.question">
+    <header>New Poll</header>
+
+    <form novalidate name="form" ng-submit="createPoll(poll.question, poll.choices)" method="post">
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <input required type="text" class="form-control" ng-model="poll.question">
+        </div>
+
+        <div class="row">
+            <fieldset data-ng-repeat="choice in choices">
+                <div class="choice-row col-lg-3"><input required type="text" ng-model="choice.name" class="form-control choice" placeholder="Enter choice"></div>
+                <div class="choice-row col-lg-1"><button type="button" class="btn btn-danger" ng-show="$index!=1 && $last" ng-click="removeChoice()">-</button></div>
+            </fieldset>
+        </div>
+
+        <button class="btn btn-default add-choice-btn" ng-click="addChoice()">Add Choice</button>
+
+        <div>
+            <input type="submit" ng-disabled="!form.$valid" class="btn btn-primary submit-btn" value="Submit" />
+        </div>
     </div>
-
-    <fieldset  data-ng-repeat="choice in choices">
-        <input type="text" ng-model="choice.name" class="choice" placeholder="Enter choice">
-        <button type="button" class="btn btn-danger" ng-show="$last" ng-click="removeChoice()">-</button>
-    </fieldset>
-
-    <button class="btn btn-default" ng-click="addChoice()">Add Choice</button>
-
 </div>
