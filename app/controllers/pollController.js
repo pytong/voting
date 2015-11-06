@@ -18,15 +18,15 @@
             $scope.poll.choices.splice(lastItem);
         }
 
-        $scope.createPoll = function(question, choices) {
-            console.log(question, choices);
-            PollService.createPoll(question, choices)
-                .save(
-                    function(res) { //success
+        $scope.createPoll = function(question, choiceObjs) {
+            var choices = $.map(choiceObjs, function(choiceObj) {
+                return choiceObj.name;
+            });
+
+            PollService.createPoll()
+                .save({'question': question, 'choices': choices},
+                    function(res) {
                         //window.location.href = "#/account";
-                    },
-                    function(err) { //error
-                      // $scope.error = "Failed to register.";
                     }
                 );
         }

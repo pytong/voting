@@ -5,6 +5,12 @@ var path = process.cwd();
 
 module.exports = function (app, passport) {
 
+	app.route ('/api/polls')
+		.post(function(req, res) {
+			console.log(req.query);
+			res.json({success: true});
+		});
+
 	app.route('/api/users/login_status')
 		.get(function(req, res) {
 			var status = req.isAuthenticated();
