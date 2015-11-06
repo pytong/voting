@@ -1,14 +1,20 @@
 'use strict';
 
-var path = process.cwd();
+var path = process.cwd(),
+    pollUtil = require("../utils/pollUtil");
+
 
 
 module.exports = function (app, passport) {
 
 	app.route ('/api/polls')
 		.post(function(req, res) {
-			console.log(req.query);
-			res.json({success: true});
+			var query = req.query;
+			if(pollUtil.savePoll(query.question, query.choices.split(","))) {
+				res.json({success: true});
+			} else {
+				res.json({success: false});
+			}
 		});
 
 	app.route('/api/users/login_status')
