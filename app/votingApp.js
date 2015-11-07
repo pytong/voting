@@ -23,6 +23,14 @@ app.config(function($locationProvider, $routeProvider) {
         controller: "PollController",
         templateUrl: "/views/newPoll.html"
     })
+    .when("/polls/vote/:question", {
+        controller: "VoteController",
+        templateUrl: "/views/vote.html"
+    })
+    .when("/polls/result/:question", {
+        controller: "VoteController",
+        templateUrl: "/views/voteResult.html"
+    })
     .otherwise({
        redirectTo: "/"
     });

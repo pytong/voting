@@ -24,7 +24,7 @@ body {
 }
 
 header {
-	background-color: #00BCD4;
+	background-color: #31B0D5;
 	margin: 20px 0;
 	padding: 10px;
 	color: #FFF;
@@ -40,6 +40,7 @@ header {
 }
 
 .twitter-btn {
+	margin: 20px 0 0 10px;
 	width: 208px;
 }
 
@@ -73,4 +74,13 @@ header {
 
 form {
 	margin-top: 30px;
+}
+
+.poll {
+	margin: 20px 0;
+}
+
+.poll-title {
+	margin-left: 10px;
+	font-size: 18px;
 }

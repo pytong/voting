@@ -21,6 +21,7 @@ app.use('/services', express.static('app/services'));
 app.use('/views', express.static('app/views'));
 app.use('/public', express.static('public'));
 app.use('/common', express.static('app/common'));
+app.use('/node_modules', express.static('node_modules'));
 app.use('/', express.static('app'));
 
 app.use(session({

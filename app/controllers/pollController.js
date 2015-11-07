@@ -30,7 +30,7 @@
             PollService.polls()
                 .save({'question': question, 'choices': choices},
                     function(res) {
-                        //window.location.href = "#/account";
+                        window.location.href = "#/account";
                     }
                 );
         }
