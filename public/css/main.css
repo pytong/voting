@@ -70,3 +70,7 @@ header {
 	font-style: italic;
 	color: #777;
 }
+
+form {
+	margin-top: 30px;
+}

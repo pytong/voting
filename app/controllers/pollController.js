@@ -4,6 +4,10 @@
         $scope.poll = {};
         $scope.poll.choices = [{"id": "choice1"}, {"id": "choice2"}];
 
+        $scope.backToAccount = function() {
+             window.location.href = "#/account";
+        }
+
         $scope.addChoice = function() {
             if($(".choice-field").last().val() === "") { return; }
 
@@ -23,7 +27,7 @@
                 return choiceObj.name;
             });
 
-            PollService.createPoll()
+            PollService.polls()
                 .save({'question': question, 'choices': choices},
                     function(res) {
                         //window.location.href = "#/account";

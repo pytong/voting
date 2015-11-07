@@ -10,11 +10,16 @@ module.exports = function (app, passport) {
 	app.route ('/api/polls')
 		.post(function(req, res) {
 			var query = req.query;
-			if(pollUtil.savePoll(query.question, query.choices.split(","))) {
-				res.json({success: true});
-			} else {
-				res.json({success: false});
-			}
+			pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
+				res.json({success: success});
+			});
+		});
+
+	app.route('/api/polls')
+		.get(function(req, res) {
+			var polls = pollUtil.getPolls(function(pollArray) {
+				res.json({success: true, polls: pollArray});
+			});
 		});
 
 	app.route('/api/users/login_status')

@@ -1,9 +1,13 @@
 <div>
     <navigation-bar></navigation-bar>
 
-    <button type="button" class="btn btn-info btn-lg" ng-click="newPoll()">My Polls</button>
+    <button type="button" class="btn btn-info btn-lg" ng-click="newPoll()">New Poll</button>
 
-    <div ng-show="showNewPoll">
-        <div ng-include="'/views/newPoll.html'"></div>
+    <header>My Polls</header>
+
+    <div>
+        <div ng-repeat="poll in polls">
+            <a href="#/polls/{{ poll.question | slugify }}">{{ poll.question }}</a>
+        </div>
     </div>
 </div>

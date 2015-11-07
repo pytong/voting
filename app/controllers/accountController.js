@@ -1,10 +1,13 @@
 (function(app) {
-    app.controller("AccountController", ["$scope", "UserService", function($scope, UserService) {
+    app.controller("AccountController", ["$scope", "PollService", function($scope, PollService) {
 
-        $scope.showNewPoll = false;
+        PollService.polls()
+            .get({}, function(res) {
+                $scope.polls = res.polls;
+            });
 
         $scope.newPoll = function() {
-            $scope.showNewPoll = true;
+             window.location.href = "#/newpoll";
         }
 
     }]);

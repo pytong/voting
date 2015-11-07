@@ -1,4 +1,4 @@
-var app = angular.module("VotingApp", ["ngResource", "ngRoute"]);
+var app = angular.module("VotingApp", ["ngResource", "ngRoute", "angular.filter"]);
 
 app.config(function($locationProvider, $routeProvider) {
 
@@ -18,6 +18,10 @@ app.config(function($locationProvider, $routeProvider) {
     .when("/account", {
         controller: "AccountController",
         templateUrl: "/views/account.html"
+    })
+    .when("/newpoll", {
+        controller: "PollController",
+        templateUrl: "/views/newPoll.html"
     })
     .otherwise({
        redirectTo: "/"

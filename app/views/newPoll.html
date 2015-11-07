@@ -1,12 +1,16 @@
-<div ng-controller="PollController">
+<div>
+    <navigation-bar></navigation-bar>
+
     <header>New Poll</header>
+
+    <button type="button" class="btn btn-info" ng-click="backToAccount()">Back to Account</button>
 
     <form novalidate name="form" ng-submit="createPoll(poll.question, poll.choices)" method="post">
 
         <label for="question">Question:</label>
         <input required type="text" class="form-control question" ng-model="poll.question">
 
-        <fieldset data-ng-repeat="choice in poll.choices">
+        <fieldset ng-repeat="choice in poll.choices">
             <div class="choice col-lg-3"><input required ng-model="choice.name" class="form-control choice-field" placeholder="Enter choice"></div>
             <div class="choice col-lg-1"><button type="button" class="btn btn-danger" ng-show="$index!=1 && $last" ng-click="removeChoice()">-</button></div>
         </fieldset>
