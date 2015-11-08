@@ -17,7 +17,14 @@ module.exports = function (app, passport) {
 
 	app.route('/api/polls')
 		.get(function(req, res) {
-			var polls = pollUtil.getPolls(function(pollArray) {
+			var question = req.query.question,
+				params = {};
+
+			if(question) {
+				params = {question: question};
+			}
+
+			pollUtil.getPolls(params, function(pollArray) {
 				res.json({success: true, polls: pollArray});
 			});
 		});
