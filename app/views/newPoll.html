@@ -5,7 +5,7 @@
 
     <header>New Poll</header>
 
-    <form novalidate name="form" ng-submit="createPoll(poll.question, poll.choices)" method="post">
+    <form novalidate name="form" ng-submit="createPoll()" method="post">
 
         <label for="question">Question:</label>
         <input required type="text" class="form-control question" ng-model="poll.question">

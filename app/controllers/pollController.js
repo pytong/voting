@@ -18,10 +18,11 @@
             $scope.poll.choices.splice(lastItem);
         }
 
-        $scope.createPoll = function(question, choiceObjs) {
-            var choices = $.map(choiceObjs, function(choiceObj) {
-                return choiceObj.name;
-            });
+        $scope.createPoll = function() {
+            var question = $scope.poll.question,
+                choices = $.map($scope.poll.choices, function(choiceObj) {
+                    return choiceObj.name;
+                });
 
             PollService.polls()
                 .save({'question': question, 'choices': choices},
