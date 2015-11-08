@@ -33,25 +33,18 @@ module.exports = {
     },
 
     addVote: function(id, vote, callback) {
-        // Poll.update({_id: id, {$inc : {choices.vote : 1}})
+        Poll.findOne({_id: id}, function(err, poll) {
+            if(err) { callback(false); }
 
-        // Poll.find({_id: id}, function(err, polls) {
-        //     if(err) { callback(false); }
+            poll.choices[vote] += 1;
+            poll.markModified("choices");
 
-        //     var poll = polls[0];
+            poll.save(function (err) {
+                if (err) { callback(false); }
+                callback(true);
+            });
 
-        //     for(var i = 0; i < poll.choices.length; i++) {
-        //         console.log(poll.choices[i][0] === vote);
-        //         if(poll.choices[i][0] === vote) {
-        //             poll.choices[i][1]++;
-        //             poll.save(function (err) {
-        //               if (err) { callback(false); }
-        //             })
-        //             callback(true);
-        //         }
-        //     }
-
-        // });
+        });
     }
 
 }
