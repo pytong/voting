@@ -10,7 +10,7 @@
         <fieldset ng-repeat="choice in choices">
                 <p>
                     <big>
-                        <input type="radio" ng-model="choice" name="vote" value="{{ choice }}"/>
+                        <input type="radio" ng-model="choice" name="vote" value="{{ choice }}" ng-checked=false />
                         <span ng-bind="choice"></span>
                     </big>
                 </p>
