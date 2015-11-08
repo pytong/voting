@@ -10,14 +10,14 @@
         <fieldset ng-repeat="choice in choices">
                 <p>
                     <big>
-                        <input type="radio" ng-model="choice" name="vote" value="{{ choice }}" ng-checked=false />
+                        <input type="radio" ng-model="$parent.choiceSelected" value="{{ choice }}" ng-checked=false />
                         <span ng-bind="choice"></span>
                     </big>
                 </p>
         </fieldset>
 
         <div>
-            <input type="submit" ng-disabled="!form.$valid" class="btn btn-primary submit-btn" value="Submit" />
+            <button ng-disabled="!choiceSelected" class="btn btn-primary submit-btn" type="submit">Submit</button>
         </div>
     </form>
 </div>

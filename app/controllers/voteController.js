@@ -11,6 +11,11 @@
                 }
             );
 
+    $scope.vote = function() {
+        console.log($scope.choiceSelected);
+
+    }
+
 
     }]);
 })(app);
