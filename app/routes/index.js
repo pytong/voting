@@ -10,22 +10,33 @@ module.exports = function (app, passport) {
 	app.route ('/api/polls')
 		.post(function(req, res) {
 			var query = req.query;
-			pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
-				res.json({success: success});
-			});
+
+			if(query.vote) {
+				pollUtil.addVote(query.id, query.vote, function(success) {
+					res.json({success: success});
+				});
+			} else {
+				pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
+					res.json({success: success});
+				});
+			}
 		});
 
 	app.route('/api/polls')
 		.get(function(req, res) {
-			var question = req.query.question,
+			var id = req.query.id,
 				params = {};
 
-			if(question) {
-				params = {question: question};
+			if(id) {
+				params = {_id: id};
 			}
 
 			pollUtil.getPolls(params, function(pollArray) {
-				res.json({success: true, polls: pollArray});
+				if(pollArray !== null) {
+					res.json({success: true, polls: pollArray});
+				} else {
+					res.json({success: false});
+				}
 			});
 		});
 

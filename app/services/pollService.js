@@ -3,7 +3,7 @@
         var appUrl = $location.protocol() + "://" + $location.host();
 
         this.polls = function() {
-            return $resource(appUrl + "/api/polls?question=:question&choices=:choices", {question: "@question", choices: "@choices"});
+            return $resource(appUrl + "/api/polls?id=:id&question=:question&choices=:choices&vote=:vote", {id: "@id", question: "@question", choices: "@choices", vote: "@vote"});
         }
 
     }]);

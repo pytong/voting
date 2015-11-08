@@ -23,11 +23,11 @@ app.config(function($locationProvider, $routeProvider) {
         controller: "PollController",
         templateUrl: "/views/newPoll.html"
     })
-    .when("/polls/vote/:question", {
+    .when("/polls/vote/:id", {
         controller: "VoteController",
         templateUrl: "/views/vote.html"
     })
-    .when("/polls/result/:question", {
+    .when("/polls/result/:id", {
         controller: "VoteController",
         templateUrl: "/views/voteResult.html"
     })

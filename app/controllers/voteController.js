@@ -1,21 +1,23 @@
 (function(app) {
     app.controller("VoteController", ["$scope", "$routeParams", "PollService", function($scope, $routeParams, PollService) {
-        $scope.question = $routeParams.question;
+        $scope.id = $routeParams.id;
 
         PollService.polls()
-            .get({'question': $scope.question},
+            .get({"id": $scope.id},
                 function(res) {
-                    $scope.choices = res.polls[0].choices.map(function(choice) {
-                        return choice[0];
-                    });
+                    $scope.question = res.polls[0].question;
+                    $scope.choices = Object.keys(res.polls[0].choices);
                 }
             );
 
     $scope.vote = function() {
-        console.log($scope.choiceSelected);
-
-    }
-
+        PollService.polls()
+            .save({"id": $scope.id, "vote": $scope.choiceSelected},
+                function(res) {
+                    window.location.href = "#/polls/result/" + $scope.id;
+                }
+            );
+        }
 
     }]);
 })(app);
