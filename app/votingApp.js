@@ -1,4 +1,4 @@
-var app = angular.module("VotingApp", ["ngResource", "ngRoute", "angular.filter"]);
+var app = angular.module("VotingApp", ["ngResource", "ngRoute"]);
 
 app.config(function($locationProvider, $routeProvider) {
 

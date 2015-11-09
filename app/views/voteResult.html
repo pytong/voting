@@ -5,20 +5,27 @@
 
     <header>{{ question }}</header>
 
-    <!--<form novalidate name="form" ng-submit="createPoll(poll.question, poll.choices)" method="post">-->
+    <div class="text-center">
+        <canvas id="myChart" width="450" height="450"></canvas>
+    </div>
 
-    <!--    <label for="question">Question:</label>-->
-    <!--    <input required type="text" class="form-control question" ng-model="poll.question">-->
+    <script>
+        var data = {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                }
+            ]
+        };
 
-    <!--    <fieldset ng-repeat="choice in poll.choices">-->
-    <!--        <div class="choice col-lg-3"><input required ng-model="choice.name" class="form-control choice-field" placeholder="Enter choice"></div>-->
-    <!--        <div class="choice col-lg-1"><button type="button" class="btn btn-danger" ng-show="$index!=1 && $last" ng-click="removeChoice()">-</button></div>-->
-    <!--    </fieldset>-->
+        var ctx = $("#myChart").get(0).getContext("2d");
+        var myBarChart = new Chart(ctx).Bar(data, {});
+	</script>
 
-    <!--    <button type="button" class="btn btn-default add-choice-btn" ng-click="addChoice()">Add Choice</button>-->
-
-    <!--    <div>-->
-    <!--        <input type="submit" ng-disabled="!form.$valid" class="btn btn-primary submit-btn" value="Submit" />-->
-    <!--    </div>-->
-    <!--</form>-->
 </div>
