@@ -14,7 +14,7 @@
         PollService.polls()
             .save({"id": $scope.id, "vote": $scope.choiceSelected},
                 function(res) {
-                    window.location.href = "#/polls/result/" + $scope.id;
+                    window.location.href = "#/polls/stats/" + $scope.id;
                 }
             );
         }

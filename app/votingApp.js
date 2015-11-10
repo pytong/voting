@@ -27,9 +27,8 @@ app.config(function($locationProvider, $routeProvider) {
         controller: "VoteController",
         templateUrl: "/views/vote.html"
     })
-    .when("/polls/result/:id", {
-        controller: "VoteController",
-        templateUrl: "/views/voteResult.html"
+    .when("/polls/stats/:id", {
+        templateUrl: "/views/voteStats.html"
     })
     .otherwise({
        redirectTo: "/"

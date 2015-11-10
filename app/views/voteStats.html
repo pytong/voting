@@ -1,0 +1,50 @@
+<div>
+    <navigation-bar></navigation-bar>
+
+    <a href="#/account" class="btn btn-default btn-lg">Back to Account</a>
+
+    <header></header>
+
+    <div class="text-center">
+        <canvas id="vote-result" width="450" height="450"></canvas>
+    </div>
+
+
+    <script>
+        var labels,
+            count = [],
+            voteMap,
+            poll,
+            id = window.location.href.slice(window.location.href.lastIndexOf("/") + 1);
+
+        $.get("/api/polls?id=" + id, function( data ) {
+            poll = data.polls[0];
+
+            $("header").text(poll.question);
+
+            voteMap = poll.choices;
+
+            labels = Object.keys(voteMap);
+            labels.forEach(function(label) {
+                count.push(voteMap[label]);
+            })
+
+            var data = {
+                labels: labels,
+                datasets: [{
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: count
+                }]
+            };
+
+            var ctx = $("#vote-result").get(0).getContext("2d");
+            var barChart = new Chart(ctx).Bar(data, {});
+
+        });
+
+	</script>
+
+</div>
