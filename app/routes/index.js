@@ -29,10 +29,11 @@ module.exports = function (app, passport) {
 	app.route('/api/polls')
 		.get(function(req, res) {
 			var id = req.query.id,
-				params = {};
+				username = req.user.username ? req.user.username : req.user.twitter.username,
+				params = {username: username};
 
 			if(id) {
-				params = {_id: id};
+				params._id = id;
 			}
 
 			pollUtil.getPolls(params, function(pollArray) {
