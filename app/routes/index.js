@@ -19,7 +19,7 @@ module.exports = function (app, passport) {
 				});
 			} else {
 				if(req.isAuthenticated()) {
-					pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
+					pollUtil.savePoll(username, query.question, query.choices.split(","), function(success) {
 						res.json({success: success});
 					});
 				}

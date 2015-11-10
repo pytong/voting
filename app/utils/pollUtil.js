@@ -1,9 +1,10 @@
 var Poll = require('../models/polls');
 
 module.exports = {
-    savePoll: function(question, choices, callback) {
+    savePoll: function(username, question, choices, callback) {
         var poll = new Poll();
 
+        poll.username = username;
         poll.question = question.trim();
 
         poll.choices = {};
