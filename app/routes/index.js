@@ -9,16 +9,20 @@ module.exports = function (app, passport) {
 
 	app.route ('/api/polls')
 		.post(function(req, res) {
-			var query = req.query;
+
+			var username = req.user.username ? req.user.username : req.user.twitter.username,
+				query = req.query;
 
 			if(query.vote) {
 				pollUtil.addVote(query.id, query.vote, function(success) {
 					res.json({success: success});
 				});
 			} else {
-				pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
-					res.json({success: success});
-				});
+				if(req.isAuthenticated()) {
+					pollUtil.savePoll(query.question, query.choices.split(","), function(success) {
+						res.json({success: success});
+					});
+				}
 			}
 		});
 
