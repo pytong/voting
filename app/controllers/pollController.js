@@ -1,5 +1,11 @@
 (function(app) {
-    app.controller("PollController", ["$scope", "PollService", function($scope, PollService) {
+    app.controller("PollController", ["$scope", "UserService", "PollService", function($scope, UserService, PollService) {
+
+        UserService.loginStatus().get(function(res) {
+            if(res.status === false) {
+                window.location.href = "#/signin";
+            }
+        });
 
         $scope.poll = {};
         $scope.poll.choices = [{"id": "choice1"}, {"id": "choice2"}];

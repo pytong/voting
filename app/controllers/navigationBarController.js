@@ -8,11 +8,14 @@
         UserService.loginStatus().get(function(res) {
             if(res.status === true) {
                 $scope.showLogoutLink = true;
+                $scope.showSignInLink = false;
+                $scope.showRegisterLink = false;
 
                 if($location.path() === "/signin" || $location.path() === "/signup") {
-                    window.location.href = "#/";
+                    window.location.href = "#/account";
                 }
             } else {
+                $scope.showLogoutLink = false;
                 $scope.showSignInLink = true;
                 $scope.showRegisterLink = true;
             }

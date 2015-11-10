@@ -1,5 +1,11 @@
 (function(app) {
-    app.controller("AccountController", ["$scope", "PollService", function($scope, PollService) {
+    app.controller("AccountController", ["$scope", "UserService", "PollService", function($scope, UserService, PollService) {
+
+        UserService.loginStatus().get(function(res) {
+            if(res.status === false) {
+                window.location.href = "#/signin";
+            }
+        });
 
         PollService.polls()
             .get({}, function(res) {
