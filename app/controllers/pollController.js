@@ -8,6 +8,7 @@
         });
 
         $scope.poll = {};
+        $scope.uniqueChoices = false;
         $scope.poll.choices = [{"id": "choice1"}, {"id": "choice2"}];
 
         $scope.addChoice = function() {
@@ -36,6 +37,18 @@
                         window.location.href = "#/account";
                     }
                 );
+        }
+
+        $scope.validateUniqueChoices = function() {
+            var choices = $.map($scope.poll.choices, function(choiceObj) {
+                return choiceObj.name;
+            });
+
+            if(choices.length === $.unique(choices).length) {
+                $scope.uniqueChoices = true;
+            } else {
+                $scope.uniqueChoices = false;
+            }
         }
 
     }]);

@@ -11,14 +11,13 @@
         <input required type="text" class="form-control question" ng-model="poll.question">
 
         <fieldset ng-repeat="choice in poll.choices">
-            <div class="choice col-lg-3"><input required ng-model="choice.name" class="form-control choice-field" placeholder="Enter choice"></div>
+            <div class="choice col-lg-3"><input required ng-model="choice.name" ng-change="validateUniqueChoices()" class="form-control choice-field" placeholder="Enter choice"></div>
             <div class="choice col-lg-1"><button type="button" class="btn btn-danger" ng-show="$index!=1 && $last" ng-click="removeChoice()">-</button></div>
         </fieldset>
 
         <button type="button" class="btn btn-default add-choice-btn" ng-click="addChoice()">Add Choice</button>
-
         <div>
-            <input type="submit" ng-disabled="!form.$valid" class="btn btn-primary submit-btn" value="Submit" />
+            <input type="submit" ng-disabled="!uniqueChoices || !form.$valid" class="btn btn-primary submit-btn" value="Submit" />
         </div>
     </form>
 </div>

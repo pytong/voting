@@ -28,6 +28,10 @@ module.exports = function (app, passport) {
 
 	app.route('/api/polls')
 		.get(function(req, res) {
+			if(!req.isAuthenticated()) {
+				return res.json({success: false});
+			}
+
 			var id = req.query.id,
 				username = req.user.username ? req.user.username : req.user.twitter.username,
 				params = {username: username};
