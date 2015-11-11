@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var app = express();
 
-require('dotenv').load();
+// require('dotenv').load();
 require('./app/config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
@@ -25,7 +25,7 @@ app.use('/node_modules', express.static('node_modules'));
 app.use('/', express.static('app'));
 
 app.use(session({
-	secret: 'secretClementine',
+	secret: 'greentrees',
 	resave: false,
 	saveUninitialized: true
 }));
