@@ -23,6 +23,8 @@ module.exports = function (app, passport) {
 					pollUtil.savePoll(username, query.question, query.choices.split(","), function(success) {
 						res.json({success: success});
 					});
+				} else {
+					res.json({success: false, message: "You are not authenticated."});
 				}
 			}
 		});
@@ -61,7 +63,7 @@ module.exports = function (app, passport) {
 				params;
 
 			if(!req.isAuthenticated() && !id) {
-				return res.json({success: false});
+				return res.json({success: false, message: "You are not authenticated."});
 			}
 
 			username = req.user.username ? req.user.username : req.user.twitter.username;

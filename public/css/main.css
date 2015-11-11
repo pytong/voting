@@ -84,3 +84,8 @@ form {
 	margin-left: 10px;
 	font-size: 18px;
 }
+
+.error-message {
+	font-size: 20px;
+	margin-left: 20px;
+}

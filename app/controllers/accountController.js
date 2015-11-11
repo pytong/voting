@@ -19,10 +19,12 @@
         $scope.delete = function(pollId) {
             PollService.polls()
                 .delete({id: pollId}, function(res) {
-                    if(res.success === true) {
+                    if(res.success === true) { // success
                         $scope.polls = $.grep($scope.polls, function(item, index ) {
                             return item.id !== pollId;
                         });
+                    } else { // error
+                        $scope.errorMessage = "Failed to delete poll. Please try again later."
                     }
                 });
         }
