@@ -16,5 +16,16 @@
              window.location.href = "#/newpoll";
         }
 
+        $scope.delete = function(pollId) {
+            PollService.polls()
+                .delete({id: pollId}, function(res) {
+                    if(res.success === true) {
+                        $scope.polls = $.grep($scope.polls, function(item, index ) {
+                            return item.id !== pollId;
+                        });
+                    }
+                });
+        }
+
     }]);
 })(app);

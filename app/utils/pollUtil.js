@@ -14,7 +14,7 @@ module.exports = {
         });
 
         poll.save(function(err) {
-           if(err) { callback(false); }
+           if(err) { return callback(false); }
 
            callback(true);
         });
@@ -24,7 +24,7 @@ module.exports = {
         var pollArray = [];
 
         Poll.find(params, function(err, polls) {
-            if(err) { callback(null); }
+            if(err) { return callback(null); }
 
             polls.forEach(function(poll) {
                 pollArray.push({question: poll.question, choices: poll.choices, id: poll.id});
@@ -33,18 +33,26 @@ module.exports = {
         });
     },
 
-    addVote: function(id, vote, callback) {
-        Poll.findOne({_id: id}, function(err, poll) {
-            if(err) { callback(false); }
+    addVote: function(params, vote, callback) {
+        Poll.findOne(params, function(err, poll) {
+            if(err) { return callback(false); }
 
             poll.choices[vote] += 1;
             poll.markModified("choices");
 
             poll.save(function (err) {
-                if (err) { callback(false); }
+                if (err) { return callback(false); }
                 callback(true);
             });
 
+        });
+    },
+
+    deletePoll: function(params, callback) {
+        Poll.remove(params, function(err) {
+            if(err) { return callback(false); }
+
+            callback(true);
         });
     }
 

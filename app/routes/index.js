@@ -10,15 +10,16 @@ module.exports = function (app, passport) {
 	app.route ('/api/polls')
 		.post(function(req, res) {
 
-			var username = req.user.username ? req.user.username : req.user.twitter.username,
+			var username,
 				query = req.query;
 
 			if(query.vote) {
-				pollUtil.addVote(query.id, query.vote, function(success) {
+				pollUtil.addVote({_id: query.id}, query.vote, function(success) {
 					res.json({success: success});
 				});
 			} else {
 				if(req.isAuthenticated()) {
+					username = req.user.username ? req.user.username : req.user.twitter.username;
 					pollUtil.savePoll(username, query.question, query.choices.split(","), function(success) {
 						res.json({success: success});
 					});
@@ -26,18 +27,22 @@ module.exports = function (app, passport) {
 			}
 		});
 
+
 	app.route('/api/polls')
 		.get(function(req, res) {
-			if(!req.isAuthenticated()) {
+			var id = req.query.id,
+				username,
+				params = {};
+
+			if(!req.isAuthenticated() && !id) {
 				return res.json({success: false});
 			}
 
-			var id = req.query.id,
-				username = req.user.username ? req.user.username : req.user.twitter.username,
-				params = {username: username};
-
 			if(id) {
 				params._id = id;
+			} else {
+				username = req.user.username ? req.user.username : req.user.twitter.username;
+				params.username = username;
 			}
 
 			pollUtil.getPolls(params, function(pollArray) {
@@ -46,6 +51,23 @@ module.exports = function (app, passport) {
 				} else {
 					res.json({success: false});
 				}
+			});
+		});
+
+	app.route('/api/polls')
+		.delete(function(req, res) {
+			var id = req.query.id,
+				username,
+				params;
+
+			if(!req.isAuthenticated() && !id) {
+				return res.json({success: false});
+			}
+
+			username = req.user.username ? req.user.username : req.user.twitter.username;
+			params = {_id: id, username: username};
+			pollUtil.deletePoll(params, function(success) {
+				res.json({success: success});
 			});
 		});
 
