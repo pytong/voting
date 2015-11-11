@@ -5,6 +5,7 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var app = express();
@@ -25,10 +26,15 @@ app.use('/common', express.static('app/common'));
 app.use('/node_modules', express.static('node_modules'));
 app.use('/', express.static('app'));
 
+// app.use(session({
+// 	secret: 'greentrees',
+// 	resave: false,
+// 	saveUninitialized: true
+// }));
+
 app.use(session({
-	secret: 'greentrees',
-	resave: false,
-	saveUninitialized: true
+    store: new FileStore({logFn: function(){}}),
+    secret: 'greentrees'
 }));
 
 app.use(passport.initialize());
