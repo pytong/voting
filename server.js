@@ -9,7 +9,8 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var app = express();
 
-// require('dotenv').load();
+
+// require('dotenv').load(); // Only required for running locally
 require('./app/config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);

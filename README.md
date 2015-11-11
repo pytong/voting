@@ -40,6 +40,7 @@ Create a file named `.env` in the root directory. This file should contain:
 TWITTER_KEY=your-twitter-key-here
 TWITTER_SECRET=your-twitter-secret-here
 MONGO_URI=mongodb://localhost:27017/voting
+APP_URL=https://voting-pytong.c9.io/
 PORT=8080
 ```
 
