@@ -11,7 +11,7 @@ var flash = require('connect-flash');
 var app = express();
 
 
-// require('dotenv').load(); // Only required for running locally
+require('dotenv').load(); // Only required for running locally
 require('./app/config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
@@ -22,7 +22,6 @@ app.use('/controllers', express.static('app/controllers'));
 app.use('/services', express.static('app/services'));
 app.use('/views', express.static('app/views'));
 app.use('/public', express.static('public'));
-app.use('/common', express.static('app/common'));
 app.use('/node_modules', express.static('node_modules'));
 app.use('/', express.static('app'));
 
