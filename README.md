@@ -5,6 +5,7 @@
 This application allows you to create your own customized polls and share them with other people.
 
 Features:
+
 1. As an authenticated user, I can keep my polls and come back later to access them.
 
 2. As an authenticated user, I can share my polls with my friends.
