@@ -7,7 +7,7 @@ var path = process.cwd(),
 
 module.exports = function (app, passport) {
 
-	app.route ('/api/polls')
+	app.route('/api/polls')
 		.post(function(req, res) {
 
 			var username,
