@@ -7,109 +7,100 @@ var path = process.cwd(),
 
 module.exports = function (app, passport) {
 
-	app.route('/api/polls')
-		.post(function(req, res) {
+	app.use(function(req, res, next) {
+		if(req.isAuthenticated()) {
+			req.username = req.user.username ? req.user.username : req.user.twitter.username;
+		}
+		next();
+	});
 
-			var username,
-				query = req.query;
+	app.post('/api/polls', function(req, res) {
+		var query = req.query;
 
-			if(query.vote) {
-				pollUtil.addVote({_id: query.id}, query.vote, function(success) {
-					res.json({success: success});
-				});
-			} else {
-				if(req.isAuthenticated()) {
-					username = req.user.username ? req.user.username : req.user.twitter.username;
-					pollUtil.savePoll(username, query.question, query.choices.split(","), function(success) {
-						res.json({success: success});
-					});
-				} else {
-					res.json({success: false, message: "You are not authenticated."});
-				}
-			}
-		});
-
-
-	app.route('/api/polls')
-		.get(function(req, res) {
-			var id = req.query.id,
-				username,
-				params = {};
-
-			if(!req.isAuthenticated() && !id) {
-				return res.json({success: false});
-			}
-
-			if(id) {
-				params._id = id;
-			} else {
-				username = req.user.username ? req.user.username : req.user.twitter.username;
-				params.username = username;
-			}
-
-			pollUtil.getPolls(params, function(pollArray) {
-				if(pollArray !== null) {
-					res.json({success: true, polls: pollArray});
-				} else {
-					res.json({success: false});
-				}
+		if(query.vote) {
+			pollUtil.addVote({_id: query.id}, query.vote, function(success) {
+				res.json({success: success});
 			});
-		});
-
-	app.route('/api/polls')
-		.delete(function(req, res) {
-			var id = req.query.id,
-				username,
-				params;
-
-			if(!req.isAuthenticated() && !id) {
+		} else {
+			if(!req.isAuthenticated()) {
 				return res.json({success: false, message: "You are not authenticated."});
 			}
 
-			username = req.user.username ? req.user.username : req.user.twitter.username;
-			params = {_id: id, username: username};
-			pollUtil.deletePoll(params, function(success) {
+			pollUtil.savePoll( req.username, query.question, query.choices.split(","), function(success) {
 				res.json({success: success});
 			});
+		}
+	});
+
+
+	app.get('/api/polls', function(req, res) {
+		var id = req.query.id,
+			params = {};
+
+		if(!req.isAuthenticated() && !id) {
+			return res.json({success: false});
+		}
+
+		id ? params._id = id : params.username = req.username;
+
+		pollUtil.getPolls(params, function(pollArray) {
+			if(pollArray !== null) {
+				res.json({success: true, polls: pollArray});
+			} else {
+				res.json({success: false});
+			}
 		});
+	});
 
-	app.route('/api/users/login_status')
-		.get(function(req, res) {
-			var status = req.isAuthenticated();
-			res.json({status: status});
+	app.delete('/api/polls', function(req, res) {
+		var id = req.query.id,
+			params;
+
+		if(!req.isAuthenticated() || !id) {
+			return res.json({success: false, message: "You are not authenticated."});
+		}
+
+		params = {_id: id, username: req.username};
+		pollUtil.deletePoll(params, function(success) {
+			res.json({success: success});
 		});
+	});
 
-	app.route('/api/users/signin')
-		.get(
-			passport.authenticate('local-signin'),
-			function(req, res) {
-				res.json({success: true});
-			});
+	app.get('/api/users/login_status', function(req, res) {
+		var status = req.isAuthenticated();
+		res.json({status: status});
+	});
 
-	app.route('/api/users/signup-submit')
-		.post(passport.authenticate('local-signup'),
-			function(req, res) {
-				res.json({success: true});
-			});
-
-	app.route('/api/users/logout')
-		.post(function (req, res) {
-			req.logout();
+	app.get('/api/users/signin', function() {
+		passport.authenticate('local-signin'),
+		function(req, res) {
 			res.json({success: true});
-		});
+		}
+	});
 
-	app.route('/auth/twitter')
-		.get(passport.authenticate('twitter'));
+	app.post('/api/users/signup-submit', function() { passport.authenticate('local-signup'),
+		function(req, res) {
+			res.json({success: true});
+		}
+	});
 
-	app.route('/auth/twitter/callback')
-		.get(passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
-			function(req, res) {
-				res.redirect('/#/account');
-		});
+	app.post('/api/users/logout', function (req, res) {
+		req.logout();
+		res.json({success: true});
+	});
 
-	app.route("*")
-		.get(function (req, res) {
-			res.sendFile(path + '/public/index.html');
-		});
+	app.get('/auth/twitter', function() {
+		passport.authenticate('twitter')
+	});
+
+	app.get('/auth/twitter/callback', function() { passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
+		function(req, res) {
+			res.redirect('/#/account');
+		}
+	});
+
+	app.get("*", function (req, res) {
+		res.sendFile(path + '/public/index.html');
+	});
 
 };
