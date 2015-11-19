@@ -71,33 +71,27 @@ module.exports = function (app, passport) {
 		res.json({status: status});
 	});
 
-	app.get('/api/users/signin', function() {
-		passport.authenticate('local-signin'),
+	app.get('/api/users/signin', passport.authenticate('local-signin'),
 		function(req, res) {
 			res.json({success: true});
-		}
-	});
+		});
 
-	app.post('/api/users/signup-submit', function() { passport.authenticate('local-signup'),
+	app.post('/api/users/signup-submit', passport.authenticate('local-signup'),
 		function(req, res) {
 			res.json({success: true});
-		}
-	});
+		});
 
 	app.post('/api/users/logout', function (req, res) {
 		req.logout();
 		res.json({success: true});
 	});
 
-	app.get('/auth/twitter', function() {
-		passport.authenticate('twitter')
-	});
+	app.get('/auth/twitter', passport.authenticate('twitter'));
 
-	app.get('/auth/twitter/callback', function() { passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
+	app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/#/signin' }),
 		function(req, res) {
 			res.redirect('/#/account');
-		}
-	});
+		});
 
 	app.get("*", function (req, res) {
 		res.sendFile(path + '/public/index.html');
