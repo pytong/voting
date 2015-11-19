@@ -17,6 +17,8 @@
         }
 
         $scope.delete = function(pollId) {
+            if(!confirm("Are you sure?")) { return; }
+
             PollService.polls()
                 .delete({id: pollId}, function(res) {
                     if(res.success === true) { // success
