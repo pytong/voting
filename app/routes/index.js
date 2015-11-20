@@ -14,57 +14,55 @@ module.exports = function (app, passport) {
 		next();
 	});
 
-	app.post('/api/polls', function(req, res) {
-		var query = req.query;
+	app.route('/api/polls')
+		.post(function(req, res) {
+			var query = req.query;
 
-		if(query.vote) {
-			pollUtil.addVote({_id: query.id}, query.vote, function(success) {
-				res.json({success: success});
+			if(query.vote) {
+				pollUtil.addVote({_id: query.id}, query.vote, function(success) {
+					res.json({success: success});
+				});
+			} else {
+				if(!req.isAuthenticated()) {
+					return res.json({success: false, message: "You are not authenticated."});
+				}
+
+				pollUtil.savePoll( req.username, query.question, query.choices.split(","), function(success) {
+					res.json({success: success});
+				});
+			}
+		})
+		.get(function(req, res) {
+			var id = req.query.id,
+				params = {};
+
+			if(!req.isAuthenticated() && !id) {
+				return res.json({success: false});
+			}
+
+			id ? params._id = id : params.username = req.username;
+
+			pollUtil.getPolls(params, function(pollArray) {
+				if(pollArray !== null) {
+					res.json({success: true, polls: pollArray});
+				} else {
+					res.json({success: false});
+				}
 			});
-		} else {
-			if(!req.isAuthenticated()) {
+		})
+		.delete(function(req, res) {
+			var id = req.query.id,
+				params;
+
+			if(!req.isAuthenticated() || !id) {
 				return res.json({success: false, message: "You are not authenticated."});
 			}
 
-			pollUtil.savePoll( req.username, query.question, query.choices.split(","), function(success) {
+			params = {_id: id, username: req.username};
+			pollUtil.deletePoll(params, function(success) {
 				res.json({success: success});
 			});
-		}
-	});
-
-
-	app.get('/api/polls', function(req, res) {
-		var id = req.query.id,
-			params = {};
-
-		if(!req.isAuthenticated() && !id) {
-			return res.json({success: false});
-		}
-
-		id ? params._id = id : params.username = req.username;
-
-		pollUtil.getPolls(params, function(pollArray) {
-			if(pollArray !== null) {
-				res.json({success: true, polls: pollArray});
-			} else {
-				res.json({success: false});
-			}
 		});
-	});
-
-	app.delete('/api/polls', function(req, res) {
-		var id = req.query.id,
-			params;
-
-		if(!req.isAuthenticated() || !id) {
-			return res.json({success: false, message: "You are not authenticated."});
-		}
-
-		params = {_id: id, username: req.username};
-		pollUtil.deletePoll(params, function(success) {
-			res.json({success: success});
-		});
-	});
 
 	app.get('/api/users/login_status', function(req, res) {
 		var status = req.isAuthenticated();
