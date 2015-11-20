@@ -1,7 +1,8 @@
 'use strict';
 
 var path = process.cwd(),
-    pollUtil = require("../utils/pollUtil");
+    pollUtil = require("../utils/pollUtil"),
+    userUtil = require("../utils/userUtil");
 
 
 
@@ -63,6 +64,20 @@ module.exports = function (app, passport) {
 				res.json({success: success});
 			});
 		});
+
+	app.get('/api/users/email_exists', function(req, res) {
+		var username = req.query.username;
+		userUtil.userExists({username: username}, function(result) {
+			var success = result.success,
+				exists = result.exists;
+
+			if(success === true && exists === false) {
+				res.json({exists: false});
+			} else {
+				res.json({exists: true});
+			}
+		});
+	})
 
 	app.get('/api/users/login_status', function(req, res) {
 		var status = req.isAuthenticated();

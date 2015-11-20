@@ -20,15 +20,32 @@
                 username = $scope.user.email,
                 password = $scope.user.password;
 
-            UserService.signup(name, username, password)
-                .save(
-                    function(res) { //success
-                        window.location.href = "#/account";
+            UserService.emailExists(username)
+                .get(
+                    function(res) { // success
+                        if(res.exists === true) {
+                            $scope.error = "Email already exists";
+                        } else {
+                            UserService.signup(name, username, password)
+                                .save(
+                                    function(res) { //success
+                                        if(res.success === true) {
+                                            window.location.href = "#/account";
+                                        } else {
+                                            $scope.error = res.message;
+                                        }
+                                    },
+                                    function(err) { //error
+                                        $scope.error = "Failed to register.";
+                                    }
+                                );
+                        }
                     },
                     function(err) { //error
                         $scope.error = "Failed to register.";
                     }
                 );
+
         }
 
     }]);
