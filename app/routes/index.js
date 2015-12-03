@@ -55,8 +55,12 @@ module.exports = function (app, passport) {
 			var id = req.query.id,
 				params;
 
-			if(!req.isAuthenticated() || !id) {
+			if(!req.isAuthenticated()) {
 				return res.json({success: false, message: "You are not authenticated."});
+			}
+
+			if(!id) {
+				return res.json({success: false, message: "No book id was provided."});
 			}
 
 			params = {_id: id, username: req.username};
