@@ -60,7 +60,7 @@ module.exports = function (app, passport) {
 			}
 
 			if(!id) {
-				return res.json({success: false, message: "No book id was provided."});
+				return res.json({success: false, message: "No poll id was provided."});
 			}
 
 			params = {_id: id, username: req.username};
