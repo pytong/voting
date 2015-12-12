@@ -52,11 +52,15 @@ module.exports = function (app, passport) {
 			});
 		})
 		.delete(function(req, res) {
+			if(!req.isAuthenticated()) {
+				return res.json({success: false, message: "You are not authenticated."});
+			}
+
 			var id = req.query.id,
 				params;
 
-			if(!req.isAuthenticated() || !id) {
-				return res.json({success: false, message: "You are not authenticated."});
+			if(!id) {
+				return res.json({success: false, message: "No poll id was provided."});
 			}
 
 			params = {_id: id, username: req.username};
